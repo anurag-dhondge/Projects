@@ -1,4 +1,5 @@
 ✨ Welcome to My Project Repository ✨
+
 Welcome! This repository is a curated collection of projects and assignments completed over time, designed to showcase my technical expertise, analytical thinking, and problem-solving skills. 
 
 🌟 What You Will Find Here
