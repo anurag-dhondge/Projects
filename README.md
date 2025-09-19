@@ -1,0 +1,1 @@
+This repository contains a collection of projects and assignments completed to date. Each project demonstrates problem-solving skills, logical thinking, and practical implementation of programming concepts.
