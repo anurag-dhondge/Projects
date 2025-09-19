@@ -24,4 +24,3 @@ Whether you are here for **reference, collaboration, or inspiration**, you will 
 
 ---
 
-Made with ❤️ by **Anurag Dhondge**
