@@ -26,7 +26,7 @@ To run the inference on an image and perform OCR, follow these steps:
 
 1.  Clone the repository and install the required dependencies:
     ```bash
-    git clone https://github.com/anurag-dhondge/Project
+    git clone https://github.com/anurag-dhondge/Project.git
     pip install -r requirements.txt
     ```
 2.  Execute the script with your model weights and an image:
