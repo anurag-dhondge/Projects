@@ -1,8 +1,8 @@
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
-import MarvellousPackerUnpacker.MarvellousPacker;
-import MarvellousPackerUnpacker.MarvellousUnpacker;
+import AnuragPackerUnpacker.AnuragPacker;
+import AnuragPackerUnpacker.AnuragUnpacker;
 
 public class PROGRAMX {
     Frame mainFrame;
@@ -11,7 +11,7 @@ public class PROGRAMX {
     Panel controlPanel;
 
     public PROGRAMX() {
-        mainFrame = new Frame("Marvellous Packer-Unpacker");
+        mainFrame = new Frame("Anurag Packer-Unpacker");
         mainFrame.setSize(500, 300);
         mainFrame.setLayout(new GridLayout(3, 1));
 
@@ -69,14 +69,14 @@ public class PROGRAMX {
                     String dirName = prompt("Enter the name of the directory to pack:");
                     String packName = prompt("Enter the name of the packed file to create:");
 
-                    MarvellousPacker mobj = new MarvellousPacker(packName, dirName);
+                    AnuragPacker mobj = new AnuragPacker(packName, dirName);
                     mobj.PackingActivity();
                     statusLabel.setText("Packing completed: " + packName);
 
                 } else if (command.equals("UNPACK")) {
                     String unpackFile = prompt("Enter the packed file name to unpack:");
 
-                    MarvellousUnpacker mobj = new MarvellousUnpacker(unpackFile);
+                    AnuragUnpacker mobj = new AnuragUnpacker(unpackFile);
                     mobj.UnpackingActivity();
                     statusLabel.setText("Unpacking completed: " + unpackFile);
                 }
@@ -91,3 +91,4 @@ public class PROGRAMX {
         }
     }
 }
+
