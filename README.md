@@ -1,9 +1,11 @@
-✨ Welcome to My Project Repository ✨
+<p style="font-size:20px;">✨ **Welcome to My Project Repository** ✨</p>
+
 
 Welcome! This repository is a curated collection of projects and assignments completed over time, designed to showcase my technical expertise, analytical thinking, and problem-solving skills. 
 
 
-🌟 What You Will Find Here
+<p style="font-size:20px;">✨ 🌟 **What You Will Find Here** ✨</p>
+
 
 Diverse Projects:             Covering multiple domains and challenges.
 Practical Applications:       Implementing programming concepts in real-world scenarios.
@@ -12,7 +14,8 @@ Continuous Learning:          Exploration of various tools, technologies, and pr
 
 
 
-💡 Highlights
+<p style="font-size:20px;">✨ 🌟 💡 **Highlights** ✨</p>
+
 
 Demonstrates structured thinking and logical reasoning.
 Showcases creativity in coding and solution design. 
