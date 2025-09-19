@@ -15,4 +15,4 @@ Welcome! This repository is a curated collection of projects and assignments com
 2.Showcases creativity in coding and solution design.<br> 
 3.Focuses on clarity, correctness, and innovation.<br> 
 4.Reflects a commitment to turning theoretical knowledge into practical solutions.<br> 
-5.Whether you are here for reference, collaboration, or inspiration, this repository provides a clear insight into my coding journey, skills, and dedication
+5.Whether you are here for reference, collaboration, or inspiration, this repository provides a clear insight into my coding journey, skills, and dedication<br>
