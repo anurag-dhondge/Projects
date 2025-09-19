@@ -1,10 +1,10 @@
-<p style="font-size:20px;">✨ **Welcome to My Project Repository** ✨</p>
+**<p style="font-size:20px;">✨ Welcome to My Project Repository ✨</p>**
 
 
 Welcome! This repository is a curated collection of projects and assignments completed over time, designed to showcase my technical expertise, analytical thinking, and problem-solving skills. 
 
 
-<p style="font-size:20px;">✨ 🌟 **What You Will Find Here** ✨</p>
+**<p style="font-size:20px;">✨ 🌟 What You Will Find Here ✨</p>**
 
 
 Diverse Projects:             Covering multiple domains and challenges.
@@ -14,7 +14,7 @@ Continuous Learning:          Exploration of various tools, technologies, and pr
 
 
 
-<p style="font-size:20px;">✨ 🌟 💡 **Highlights** ✨</p>
+**<p style="font-size:20px;">✨ 🌟 💡 Highlights ✨</p>**
 
 
 Demonstrates structured thinking and logical reasoning.
