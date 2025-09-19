@@ -1,53 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projects Repository</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            background-color: #f9f9f9;
-            color: #333;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            max-width: 900px;
-            margin: 50px auto;
-            padding: 30px;
-            background-color: #fff;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-        h1, h2 {
-            color: #2c3e50;
-        }
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        h2 {
-            margin-top: 30px;
-        }
-        p {
-            margin: 15px 0;
-        }
-        ul {
-            margin: 10px 0 20px 20px;
-        }
-        li {
-            margin-bottom: 10px;
-        }
-        .highlight {
-            color: #e67e22;
-            font-weight: bold;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
+
         <h1>Welcome to My Projects Repository 👋</h1>
 
         <p>
@@ -74,5 +25,3 @@
             <li>✅ <span class="highlight">Innovation</span></li>
         </ul>
     </div>
-</body>
-</html>
