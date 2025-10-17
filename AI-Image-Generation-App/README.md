@@ -19,38 +19,12 @@ Built with **MongoDB**, **Express.js**, **React.js**, and **Node.js**, this proj
 
 ## 🛠️ Tech Stack
 
-| Category            | Technologies                  |
-|---------------------|-------------- ----------------|
-| **Frontend**        | React.js, Tailwind CSS, Axios |
-| **Backend**         | Node.js, Express.js           |
-| **Database**        | MongoDB, Mongoose             |
-| **AI Model**        | OpenAI DALL·E API             |
-| **Version Control** | Git, GitHub                   |
+**Frontend**         -> React.js, Tailwind CSS, Axios <br>
+**Backend**          -> Node.js, Express.js  <br>
+**Database**         -> MongoDB, Mongoose<br>           
+**AI Model**         -> OpenAI DALL·E API<br>        
+**Version Control**  -> Git, GitHub<br>             
 
----
-
-## 📂 Folder Structure
-AI-Image-Generation-App/
-│
-├── client/ # React frontend
-│ ├── src/
-│ │ ├── components/ # Reusable UI components
-│ │ ├── pages/ # Home, CreatePost, etc.
-│ │ └── utils/ # Helper functions
-│ └── package.json
-│
-├── server/ # Node.js + Express backend
-│ ├── routes/ # API routes
-│ ├── controllers/ # Logic for OpenAI and posts
-│ ├── models/ # MongoDB schema
-│ └── package.json
-│
-├── .env # API keys and environment variables
-├── README.md
-└── package.json
-
-
----
 
 ## ⚙️ Installation & Setup
 
