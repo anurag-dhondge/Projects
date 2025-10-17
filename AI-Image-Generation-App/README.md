@@ -20,10 +20,10 @@ Built with **MongoDB**, **Express.js**, **React.js**, and **Node.js**, this proj
 ## 🛠️ Tech Stack
 
 **Frontend**         -> React.js, Tailwind CSS, Axios <br>
-**Backend**          -> Node.js, Express.js  <br>
-**Database**         -> MongoDB, Mongoose<br>           
-**AI Model**         -> OpenAI DALL·E API<br>        
-**Version Control**  -> Git, GitHub<br>             
+**Backend**          -> Node.js, Express.js <br>
+**Database**         -> MongoDB, Mongoose <br>           
+**AI Model**         -> OpenAI, DALL·E API <br>        
+**Version Control**  -> Git, GitHub <br>             
 
 
 ## ⚙️ Installation & Setup
