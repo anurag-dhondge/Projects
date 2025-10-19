@@ -17,13 +17,13 @@ Whether you're a developer, artist, or AI enthusiast, this project is a fun way 
 💾 Save and View Images: Store generated images and browse a community feed of user submissions. <br>
 📤 Share Artwork: Easily share your AI-generated creations with friends or on social media. <br>
 ⚡ Real-Time Rendering: Experience fast image generation with seamless API integration. <br>
-🌐 Responsive UI: A modern, user-friendly interface built with React and Tailwind CSS. <br>
+🌐 Responsive UI: A modern, user-friendly interface built with React. <br>
 🔒 Secure Backend: Protected API endpoints using Node.js and Express.js. <br>
 🧩 Data Storage: Efficiently manage posts and images with MongoDB. <br><br>
 
 ## 🛠️ Tech Stack <br>
 Component	Technologies
-Frontend	React.js, Tailwind CSS, Axios
+Frontend	React.js
 Backend	Node.js, Express.js
 Database	MongoDB, Mongoose
 AI Model	OpenAI DALL·E API
