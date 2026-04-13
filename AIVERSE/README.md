@@ -1,7 +1,7 @@
 # 🚀 AIVERSE — AI-Powered Image Intelligence Platform 
 
 <p align="center">
-  # (🚧 Under Development)
+  <b> (🚧 Under Development) </b>
 </p>
 
 <p align="center">
