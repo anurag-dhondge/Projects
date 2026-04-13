@@ -1,4 +1,4 @@
-# 🚀 AIVERSE — AI-Powered Image Intelligence Platform
+# 🚀 AIVERSE — AI-Powered Image Intelligence Platform (Under Development)
 
 <p align="center">
   <b>One Platform • Infinite AI Possibilities</b><br>
