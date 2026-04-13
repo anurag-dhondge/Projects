@@ -1,721 +1,244 @@
-# VisionAI — AI-Powered Image Intelligence Platform
+# 🚀 AIVERSE — AI-Powered Image Intelligence Platform
 
-> A full-stack web application combining **image restoration**, **object detection**, **image recognition**, **enhancement**, and **generative AI** (text-to-image, image-to-image, sketch-to-image) — all through a single, clean dashboard.
-
----
-
-## Table of Contents
-
-1. [Project Overview](#1-project-overview)
-2. [Feature Breakdown](#2-feature-breakdown)
-3. [Architecture](#3-architecture)
-4. [Tech Stack](#4-tech-stack)
-5. [Directory Structure](#5-directory-structure)
-6. [Prerequisites](#6-prerequisites)
-7. [Installation — Step by Step](#7-installation--step-by-step)
-   - [Step 1 – Clone the Repository](#step-1--clone-the-repository)
-   - [Step 2 – Create the Conda Environment](#step-2--create-the-conda-environment)
-   - [Step 3 – Activate the Environment](#step-3--activate-the-environment)
-   - [Step 4 – Install Python Dependencies](#step-4--install-python-dependencies)
-   - [Step 5 – Set Up Environment Variables](#step-5--set-up-environment-variables)
-   - [Step 6 – Install Frontend Dependencies](#step-6--install-frontend-dependencies)
-8. [Starting the Application](#8-starting-the-application)
-   - [Option A – One-command (Windows PowerShell)](#option-a--one-command-windows-powershell)
-   - [Option B – Manual (two terminals)](#option-b--manual-two-terminals)
-9. [API Reference](#9-api-reference)
-10. [Configuration](#10-configuration)
-11. [Supported File Formats](#11-supported-file-formats)
-12. [Processing Pipeline Details](#12-processing-pipeline-details)
-13. [Generative AI Details](#13-generative-ai-details)
-14. [Troubleshooting](#14-troubleshooting)
-15. [Environment Variables Reference](#15-environment-variables-reference)
+<p align="center">
+  <b>One Platform • Infinite AI Possibilities</b><br>
+  Unified system for Computer Vision & Generative AI
+</p>
 
 ---
 
-## 1. Project Overview
+## 📌 Overview
 
-VisionAI is a **full-stack AI image intelligence platform** built as a single-page dashboard. It exposes a Python/Flask backend that runs multiple computer-vision and generative-AI pipelines, proxied through a Next.js 15 frontend.
+**AIVERSE** is a **full-stack AI image intelligence platform** that combines multiple computer vision and generative AI capabilities into a single unified dashboard.
 
-The platform works entirely **locally** — no cloud API keys required for core features (only a Hugging Face token is needed for generative diffusion models).
-
----
-
-## 2. Feature Breakdown
-
-| Feature | Description | Engine |
-|---|---|---|
-| **Image Restoration** | Deblurs photos using Richardson–Lucy deconvolution with auto PSF selection | OpenCV + custom RL pipeline |
-| **DeblurGAN-v2** | Optional neural deblurring for challenging cases (requires TensorFlow + trained model) | TensorFlow / Keras |
-| **Image Enhancement** | Sharpens, adjusts contrast (CLAHE), and boosts perceived quality | OpenCV |
-| **Object Detection** | Draws bounding boxes with labels and confidence scores | YOLOv8 (Ultralytics) |
-| **Image Recognition** | Returns top-5 class predictions with confidence | YOLOv8-cls (Ultralytics) |
-| **Text-to-Image** | Generates images from natural-language prompts | Stable Diffusion (Diffusers / HuggingFace) |
-| **Image-to-Image** | Transforms an uploaded image guided by a text prompt | Stable Diffusion img2img |
-| **Sketch-to-Image** | Converts hand-drawn sketches into photorealistic images | ControlNet + Stable Diffusion |
-| **Video Restoration** | Frame-by-frame deblurring of video files | OpenCV + RL pipeline |
-| **Output Vault** | Browses all previously processed images | Flask static serving |
-| **Diff Overlay** | Side-by-side heatmap of restoration changes | OpenCV |
+It enables users to **restore, enhance, detect, recognize, and generate images** seamlessly — all in one place.
 
 ---
 
-## 3. Architecture
+## ✨ Features
 
-```
-┌─────────────────────────────────────────────────┐
-│              Browser  :3000                      │
-│         Next.js 15 + React 19 Frontend           │
-│  (Tailwind CSS v4, Lucide React, Framer Motion)  │
-└────────────────┬────────────────────────────────┘
-                 │  HTTP (proxied rewrites)
-                 ▼
-┌─────────────────────────────────────────────────┐
-│            Flask Backend  :8000                  │
-│  ┌─────────┐ ┌──────────┐ ┌──────────────────┐  │
-│  │ /api/   │ │ /uploads/│ │    /outputs/     │  │
-│  │process  │ │ (static) │ │    (static)      │  │
-│  └────┬────┘ └──────────┘ └──────────────────┘  │
-│       │                                          │
-│  ┌────▼──────────────────────────────────────┐  │
-│  │           Processing Modules               │  │
-│  │  restoration.py  detection.py              │  │
-│  │  recognition.py  enhancement.py            │  │
-│  │  deep_deblur.py  video.py                  │  │
-│  └────────────────────────────────────────────┘  │
-│  ┌────────────────────────────────────────────┐  │
-│  │           Generative Modules               │  │
-│  │  text_to_image.py  image_to_image.py       │  │
-│  │  sketch_to_image.py                        │  │
-│  └────────────────────────────────────────────┘  │
-└─────────────────────────────────────────────────┘
+* 🧼 **Image Restoration** — Richardson–Lucy + DeblurGAN-v2
+* ✨ **Image Enhancement** — CLAHE + sharpening
+* 🎯 **Object Detection** — YOLOv8 bounding boxes
+* 🧠 **Image Recognition** — Top-5 classification
+* 🎨 **Text-to-Image** — Stable Diffusion
+* 🔁 **Image-to-Image** — Prompt-based transformation
+* ✏️ **Sketch-to-Image** — ControlNet
+* 🎥 **Video Restoration** — Frame-by-frame processing
+* 📂 **Output Vault** — Manage results
+* 🔍 **Diff Overlay** — Visual comparison
+
+---
+
+## 🏗️ Architecture
+
+```mermaid
+graph TD
+A[User] --> B[Next.js Frontend :3000]
+B --> C[Flask Backend :8000]
+C --> D[Processing Modules]
+C --> E[Generative Modules]
+D --> F[Output Storage]
+E --> F
+F --> B
 ```
 
-**Request Flow:**
-1. User uploads an image / enters a prompt in the React UI.
-2. Next.js proxies the request to `localhost:8000` via `next.config.ts` rewrites.
-3. Flask receives the file, dispatches to the correct processing/generative module.
-4. The processed file is saved to `static/outputs/` and a URL is returned.
-5. The frontend fetches and displays the result side-by-side with the original.
-
 ---
 
-## 4. Tech Stack
+## 🧰 Tech Stack
 
 ### Backend
-| Component | Version / Details |
-|---|---|
-| Python | 3.10 (via Conda) |
-| Flask | latest |
-| Flask-CORS | latest |
-| python-dotenv | latest |
-| OpenCV (`opencv-python`) | latest |
-| NumPy | latest |
-| Pillow | latest |
-| PyTorch + torchvision | latest (CPU or CUDA) |
-| Diffusers (HuggingFace) | latest |
-| Transformers | latest |
-| Accelerate | latest |
-| Safetensors | latest |
-| scikit-image | latest |
-| Ultralytics (YOLOv8) | latest |
+
+* Python 3.10
+* Flask, Flask-CORS
+* OpenCV, NumPy, Pillow
+* PyTorch, Diffusers, Transformers
+* Ultralytics YOLOv8
 
 ### Frontend
-| Component | Version |
-|---|---|
-| Next.js | 16.1.6 (React 19) |
-| React | 19.2.3 |
-| Tailwind CSS | v4 |
-| Lucide React | ^0.563 |
-| Framer Motion | ^12 |
-| next-themes | ^0.4.6 |
-| TypeScript | ^5 |
+
+* Next.js 16 (React 19)
+* Tailwind CSS v4
+* Framer Motion
+* TypeScript
 
 ---
 
-## 5. Directory Structure
+## 📁 Project Structure
 
-```
-Blur_image_project/
-├── app.py                   # Flask entry point — all API routes
-├── config.py                # Upload/output folder paths, allowed extensions
-├── requirements.txt         # Python dependencies
-├── .env                     # Hugging Face token (HF_TOKEN)
+```bash
+AIVERSE/
+├── app.py
+├── config.py
+├── requirements.txt
+├── .env
 │
-├── processing/              # Computer vision pipeline modules
-│   ├── restoration.py       # Richardson-Lucy deconvolution, PSF selection
-│   ├── deep_deblur.py       # DeblurGAN-v2 (optional, needs TF)
-│   ├── detection.py         # YOLOv8 object detection
-│   ├── recognition.py       # YOLOv8-cls image classification (top-5)
-│   ├── enhancement.py       # CLAHE + unsharp masking
-│   └── video.py             # Frame-by-frame video restoration
+├── processing/
+├── generative/
+├── vision_utils/
+├── models/
+├── trained_model/
 │
-├── generative/              # Diffusion-based generative AI modules
-│   ├── text_to_image.py     # Stable Diffusion text → image
-│   ├── image_to_image.py    # Stable Diffusion img2img
-│   └── sketch_to_image.py   # ControlNet sketch → photorealistic image
-│
-├── vision_utils/            # Shared utilities (file helpers, etc.)
-├── models/                  # Local YOLO model weights (optional)
-├── trained_model/           # DeblurGAN-v2 weights (optional)
 ├── static/
-│   ├── uploads/             # Temporary uploaded files
-│   └── outputs/             # All processed / generated outputs
+│   ├── uploads/
+│   └── outputs/
 │
+├── frontend/
 ├── scripts/
-│   ├── dev.ps1              # Windows PowerShell one-shot launcher
-│   └── dev.sh               # Linux/macOS launcher
-│
-├── frontend/                # Next.js application
-│   ├── src/app/
-│   │   ├── page.tsx         # Main dashboard page (single-page app)
-│   │   └── globals.css      # Global Tailwind + custom styles
-│   ├── next.config.ts       # API proxy rewrites → :8000
-│   └── package.json         # Frontend dependencies
-│
-└── docs/                    # Additional documentation / presentations
+└── docs/
 ```
 
 ---
 
-## 6. Prerequisites
+## ⚙️ Prerequisites
 
-Before you start, make sure the following are installed on your system:
+* Anaconda / Miniconda
+* Node.js (v18+)
+* Git
 
-| Tool | Version | Install Link |
-|---|---|---|
-| **Anaconda / Miniconda** | Any recent | https://www.anaconda.com/download |
-| **Node.js** | 18 LTS or newer | https://nodejs.org |
-| **npm** | Comes with Node | — |
-| **Git** | Any | https://git-scm.com |
-
-> **GPU Note:** PyTorch and Diffusers will automatically use a CUDA GPU if available. CPU-only operation works but generative features will be very slow (minutes per image). At least 8 GB RAM is recommended; 16 GB+ preferred.
+> ⚠️ Recommended: 16GB RAM + GPU for generative features
 
 ---
 
-## 7. Installation — Step by Step
+## 🛠️ Installation
 
-### Step 1 – Clone the Repository
+### 1️⃣ Clone Repository
 
-```powershell
-git clone <your-repo-url>
-cd Blur_image_project
+```bash
+git clone <repo-url>
+cd AIVERSE
 ```
 
----
+### 2️⃣ Create Environment
 
-### Step 2 – Create the Conda Environment
-
-The backend requires **Python 3.10** in an isolated Conda environment named `visionai-tf`.
-
-```powershell
-conda create -n visionai-tf python=3.10 -y
+```bash
+conda create -n aiverse python=3.10 -y
+conda activate aiverse
 ```
 
-> **Why 3.10?** PyTorch, Diffusers, and (optionally) TensorFlow all have stable wheels for Python 3.10. Using 3.11+ may cause binary incompatibilities.
+### 3️⃣ Install Backend Dependencies
 
----
-
-### Step 3 – Activate the Environment
-
-```powershell
-conda activate visionai-tf
-```
-
-Verify Python path:
-
-```powershell
-python --version
-# Expected: Python 3.10.x
-```
-
----
-
-### Step 4 – Install Python Dependencies
-
-With the environment active, install all backend dependencies:
-
-```powershell
+```bash
 pip install -r requirements.txt
 ```
 
-This installs:
-- `flask`, `flask-cors`, `python-dotenv`
-- `opencv-python`, `numpy`, `pillow`, `scikit-image`
-- `torch`, `torchvision`
-- `diffusers`, `transformers`, `accelerate`, `safetensors`
-- `ultralytics` (YOLOv8)
+### 4️⃣ Setup Environment Variables
 
-> **CUDA users:** After the above, reinstall PyTorch with CUDA support:
-> ```powershell
-> pip install torch torchvision --index-url https://download.pytorch.org/whl/cu121
-> ```
-> Replace `cu121` with your CUDA version (e.g., `cu118` for CUDA 11.8).
-
-> **DeblurGAN-v2 (optional):** If you want to use the neural deblurring engine, also install TensorFlow:
-> ```powershell
-> pip install tensorflow
-> ```
-> Then place your trained `.h5` model file inside `trained_model/`.
-
----
-
-### Step 5 – Set Up Environment Variables
-
-Create a `.env` file in the project root (already exists if you cloned the repo):
+Create `.env` file:
 
 ```ini
-HF_TOKEN=your_huggingface_token_here
+HF_TOKEN=your_huggingface_token
 ```
 
-**How to get your Hugging Face token:**
-1. Go to https://huggingface.co/settings/tokens
-2. Click **New token** → give it a name → set role to `read`
-3. Copy the token and paste it into `.env`
+### 5️⃣ Install Frontend
 
-> The token is required for the Stable Diffusion generative models to download on first use. Without it, text-to-image and sketch-to-image will fail.
-
----
-
-### Step 6 – Install Frontend Dependencies
-
-In a separate terminal (or in the same terminal after the conda steps), navigate to the frontend folder and install Node packages:
-
-```powershell
+```bash
 cd frontend
 npm install
 cd ..
 ```
 
-This installs Next.js 16, React 19, Tailwind CSS v4, Lucide, Framer Motion, and all other frontend dependencies into `frontend/node_modules/`.
-
 ---
 
-## 8. Starting the Application
+## ▶️ Running the Application
 
-### Option A – One-command (Windows PowerShell)
+### 🔹 Option A (Recommended)
 
-The project ships with a PowerShell launcher that starts both servers simultaneously and monitors them:
-
-```powershell
+```bash
 .\scripts\dev.ps1
 ```
 
-**What it does:**
-1. Validates that the `visionai-tf` Conda environment exists
-2. Launches Flask (`app.py`) on **port 8000** in the background
-3. Launches `npm run dev` (Next.js) on **port 3000** in the background
-4. Watches both processes and reports if either crashes
-5. Cleans up both processes on `Ctrl+C`
+### 🔹 Option B (Manual)
 
-**Logs are written to:**
-| Log File | Content |
-|---|---|
-| `backend.windows.log` | Flask stdout |
-| `backend.windows.err.log` | Flask stderr (check here for errors) |
-| `frontend.windows.log` | Next.js stdout |
-| `frontend.windows.err.log` | Next.js stderr |
+**Terminal 1 — Backend**
 
-After a few seconds, open **http://localhost:3000** in your browser.
-
----
-
-### Option B – Manual (Two Terminals)
-
-If the script doesn't work or you prefer manual control:
-
-**Terminal 1 — Backend (Flask)**
-
-```powershell
-# Activate the conda environment
-conda activate visionai-tf
-
-# From the project root
+```bash
+conda activate aiverse
 python app.py
 ```
 
-Expected output:
-```
-[startup] Warming up text-to-image pipeline...
- * Running on http://0.0.0.0:8000
-```
+**Terminal 2 — Frontend**
 
-**Terminal 2 — Frontend (Next.js)**
-
-```powershell
-# From the frontend directory
+```bash
 cd frontend
 npm run dev
 ```
 
-Expected output:
-```
-▲ Next.js 16.1.6
-- Local:        http://localhost:3000
-- Ready in ...ms
-```
-
-Open **http://localhost:3000** in your browser.
+👉 Open: [http://localhost:3000](http://localhost:3000)
 
 ---
 
-### Startup Sequence Summary
+## 🔗 API Endpoints
 
-```
-1. conda activate visionai-tf          ← activate Python env
-2. python app.py                       ← start backend on :8000
-3. cd frontend && npm run dev          ← start frontend on :3000
-4. Open http://localhost:3000          ← use the app
-```
-
-> **Important:** Always start the backend **before** the frontend. The Next.js proxy (`next.config.ts`) will fail silently until Flask is reachable on port 8000.
-
----
-
-## 9. API Reference
-
-All API calls are made to `localhost:8000` (or proxied through `localhost:3000/api/...`).
-
-### `GET /api/health`
-Returns `{ "status": "ok" }`. Use to verify the backend is running.
+| Method | Endpoint         | Description              |
+| ------ | ---------------- | ------------------------ |
+| GET    | `/api/health`    | Check backend status     |
+| POST   | `/api/process`   | Main processing endpoint |
+| POST   | `/api/job/start` | Start async job          |
+| GET    | `/api/job/<id>`  | Job status               |
+| GET    | `/api/vault`     | Fetch outputs            |
 
 ---
 
-### `GET /api/capabilities`
-Returns which optional features are available.
+## 🧠 Processing Pipeline
 
-```json
-{
-  "deblurgan_v2": false
-}
-```
-
----
-
-### `POST /api/process`
-Main processing endpoint. Accepts `multipart/form-data`.
-
-| Field | Type | Required | Description |
-|---|---|---|---|
-| `action` | string | ✅ | One of: `restore`, `enhance`, `detect`, `recognize`, `generate_text`, `generate_image`, `sketch_to_image` |
-| `image` | file | Depends | Required for all except `generate_text` |
-| `prompt` | string | Depends | Required for `generate_text`, `generate_image`, `sketch_to_image` |
-
-#### Restore-specific fields
-
-| Field | Type | Default | Description |
-|---|---|---|---|
-| `engine` | string | `rl` | `rl` (Richardson-Lucy) or `deblurgan` |
-| `strength` | string | `medium` | `soft`, `medium`, `strong`, `very_strong` |
-| `blur_type` | string | `auto` | `auto`, `gaussian`, `motion` |
-| `motion_length` | int | `9` | Kernel length for motion blur PSF |
-| `motion_angle` | float | `0.0` | Angle in degrees for motion blur PSF |
-| `enhance_after` | bool | `false` | Apply CLAHE + unsharp mask after RL deconvolution |
-| `denoise_before` | bool | `false` | Apply NLM denoising before RL |
-| `derain_before` | bool | `false` | Apply rain-streak removal before RL |
-| `extra_iters` | int | `0` | Extra RL iterations on top of the preset |
-
-#### Example Response
-
-```json
-{
-  "original": "static/uploads/photo.jpg",
-  "output": "static/outputs/photo_restored_1712345678.jpg",
-  "original_url": "/uploads/photo.jpg",
-  "output_url": "/outputs/photo_restored_1712345678.jpg",
-  "overlay_url": "/outputs/photo_restored_1712345678_diff_overlay.png",
-  "mask_url": "/outputs/photo_restored_1712345678_diff_mask.png"
-}
-```
+* Preprocessing (denoise / derain)
+* PSF estimation
+* Richardson–Lucy deconvolution
+* Enhancement (CLAHE + sharpening)
+* Output + diff visualization
 
 ---
 
-### `POST /api/job/start`
-Starts a long-running generative job (for progress tracking). Returns a `job_id`.
+## 🎨 Generative AI
 
-| Field | Type | Required | Description |
-|---|---|---|---|
-| `action` | string | ✅ | `generate_text` or `sketch_to_image` |
-| `prompt` | string | ✅ | Text prompt |
-| `width` | int | 512 | Output width |
-| `height` | int | 512 | Output height |
-| `steps` | int | 25 | Number of diffusion steps |
-| `image` | file | For sketch | Sketch image file |
+* Stable Diffusion (Diffusers)
+* ControlNet (Sketch-to-Image)
+* Text → Image
+* Image → Image
 
 ---
 
-### `GET /api/job/<job_id>`
-Poll for job status.
+## 🧪 Troubleshooting
 
-```json
-{
-  "job_id": "abc123",
-  "action": "generate_text",
-  "status": "running",
-  "step": 12,
-  "total": 25,
-  "elapsed_s": 8.3,
-  "eta_s": 6.9,
-  "error": null,
-  "output_url": null
-}
-```
-
-`status` values: `queued` → `running` → `done` | `error`
+| Issue                 | Solution                            |
+| --------------------- | ----------------------------------- |
+| Backend not starting  | Activate conda env + reinstall deps |
+| Frontend not fetching | Ensure backend is running           |
+| Model download fails  | Check `HF_TOKEN`                    |
+| Port conflict         | Free ports 3000 / 8000              |
 
 ---
 
-### `GET /api/vault`
-Returns a list of all output files sorted by most recently modified.
+## 🔐 Environment Variables
 
-```json
-[
-  { "name": "photo_restored_1712345678.jpg", "url": "/outputs/photo_restored_1712345678.jpg", "timestamp": 1712345678.123 }
-]
-```
+| Variable | Description        |
+| -------- | ------------------ |
+| HF_TOKEN | Hugging Face token |
 
 ---
 
-### Static File Serving
-
-| Route | Description |
-|---|---|
-| `GET /uploads/<filename>` | Serve uploaded input files |
-| `GET /outputs/<filename>` | Serve processed output files |
-
----
-
-## 10. Configuration
-
-All paths and extension lists are managed in `config.py`:
-
-```python
-BASE_DIR       = os.path.abspath(os.path.dirname(__file__))
-UPLOAD_FOLDER  = os.path.join(BASE_DIR, "static/uploads")
-OUTPUT_FOLDER  = os.path.join(BASE_DIR, "static/outputs")
-
-ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "webp", "mp4", "mov", "avi", "mkv", "webm"}
-VIDEO_EXTENSIONS   = {"mp4", "mov", "avi", "mkv", "webm"}
-
-IMAGE_SIZE = (512, 512)   # Base size for generative inference
-```
-
-The Next.js proxy is configured in `frontend/next.config.ts`:
-
-```typescript
-async rewrites() {
-  return [
-    { source: "/api/:path*",     destination: "http://localhost:8000/api/:path*" },
-    { source: "/uploads/:path*", destination: "http://localhost:8000/uploads/:path*" },
-    { source: "/outputs/:path*", destination: "http://localhost:8000/outputs/:path*" },
-  ];
-}
-```
-
----
-
-## 11. Supported File Formats
-
-| Category | Formats |
-|---|---|
-| Images (input/output) | `.png`, `.jpg`, `.jpeg`, `.webp` |
-| Videos (input) | `.mp4`, `.mov`, `.avi`, `.mkv`, `.webm` |
-
----
-
-## 12. Processing Pipeline Details
-
-### Image Restoration (Richardson-Lucy)
-
-The core restoration pipeline (`processing/restoration.py`) operates as follows:
-
-1. **Optional derain** — Tophat morphological filter removes rain streaks, followed by `cv2.inpaint`
-2. **Optional NLM denoising** — `cv2.fastNlMeansDenoisingColored` smooths sensor noise
-3. **Auto PSF selection** — Tries 3 Gaussian sigmas × 1 motion kernel at 6 orientations on a downsampled thumbnail; picks the kernel that maximises Laplacian variance after RL
-4. **Richardson-Lucy deconvolution** — Applied per-channel on the Y (luminance) channel of YCrCb to avoid color artifacts
-5. **Optional enhancement** — Edge-preserving detail enhance → unsharp mask → CLAHE on L channel
-6. **Diff overlay** — Generates a JET colormap heatmap showing pixels changed by restoration
-
-**Strength Presets:**
-
-| Strength | RL Iterations | PSF Size | Sigma |
-|---|---|---|---|
-| `soft` | 8 | 7 | 1.0 |
-| `medium` | 12 | 9 | 1.4 |
-| `strong` | 18 | 11 | 1.8 |
-| `very_strong` | Same as strong + extra_iters | 11 | 1.8 |
-
-### Object Detection
-
-Uses **YOLOv8n** (nano) from Ultralytics. Falls back to downloading `yolov8n.pt` if `models/detection/yolov5n.pt` is not present. Draws bounding boxes with label + confidence score.
-
-### Image Recognition
-
-Uses **YOLOv8n-cls** (classification variant). Returns top-5 class predictions with confidence scores. The model file `yolov8n-cls.pt` is auto-downloaded on first use and cached in the project root.
-
-### Enhancement
-
-`processing/enhancement.py` applies a standalone enhancement pass (CLAHE + unsharp masking) without the full RL deconvolution pipeline.
-
-### Video Restoration
-
-`processing/video.py` reads each frame with OpenCV, passes it through `restore_frame_array()` (same RL pipeline), and writes the result to an output video using `cv2.VideoWriter`.
-
----
-
-## 13. Generative AI Details
-
-All generative features use **Hugging Face Diffusers** models downloaded on first use and cached in `~/.cache/huggingface/`. A valid `HF_TOKEN` in `.env` is required.
-
-### Text-to-Image (`generative/text_to_image.py`)
-- Model: `runwayml/stable-diffusion-v1-5` (or configured equivalent)
-- Lazy-loaded and cached; pre-warmed in a background thread at startup
-- Supports `width`, `height`, `steps`, and a `progress_cb` callback for job tracking
-
-### Image-to-Image (`generative/image_to_image.py`)
-- Stable Diffusion img2img pipeline
-- Takes an uploaded image + text prompt, outputs a transformed image
-
-### Sketch-to-Image (`generative/sketch_to_image.py`)
-- Uses ControlNet (Canny edge conditioning) + Stable Diffusion
-- Lazy-loaded and pre-warmed at startup alongside the text-to-image pipeline
-- Best results with clean, high-contrast line drawings
-
----
-
-## 14. Troubleshooting
-
-### Backend won't start
-
-**Problem:** `ModuleNotFoundError` when running `python app.py`
-
-**Fix:** Ensure the `visionai-tf` Conda environment is active:
-```powershell
-conda activate visionai-tf
-pip install -r requirements.txt
-```
-
----
-
-### "visionai-tf env Python not found" when running `dev.ps1`
-
-**Problem:** The script looks for Python at a hardcoded path.
-
-**Fix:** Open `scripts/dev.ps1` and update line 5 to match your actual Conda installation path:
-```powershell
-$EnvPython = "C:\Users\YourUsername\.conda\envs\visionai-tf\python.exe"
-```
-
-Find the correct path with:
-```powershell
-conda activate visionai-tf
-where python
-```
-
----
-
-### Frontend shows "Failed to fetch" or blank results
-
-**Problem:** Next.js proxy can't reach backend.
-
-**Fix:**
-1. Confirm Flask is running: `curl http://localhost:8000/api/health`
-2. Make sure Flask started **before** Next.js
-3. Check `backend.windows.err.log` for Python errors
-
----
-
-### Generative features fail (text-to-image / sketch)
-
-**Problem:** HuggingFace model won't download.
-
-**Fix:**
-1. Ensure `.env` has a valid `HF_TOKEN`
-2. Check internet connectivity
-3. If behind a proxy, set `HTTP_PROXY` / `HTTPS_PROXY` env vars
-4. Check `backend.windows.err.log` for detailed error messages
-
----
-
-### YOLO model not found
-
-**Problem:** `FileNotFoundError` for `yolov8n.pt` or `yolov8n-cls.pt`
-
-**Fix:** These auto-download from Ultralytics on first use. Ensure you have internet access. The `.pt` files are saved to the project root:
-- `yolov8n.pt` — detection model (~6 MB)
-- `yolov8n-cls.pt` — classification model (~5.5 MB)
-
----
-
-### Port already in use
-
-```powershell
-# Find and kill process on port 8000
-netstat -ano | findstr :8000
-taskkill /PID <PID> /F
-
-# Find and kill process on port 3000
-netstat -ano | findstr :3000
-taskkill /PID <PID> /F
-```
-
----
-
-### DeblurGAN-v2 reports unavailable
-
-**Problem:** `/api/capabilities` returns `{ "deblurgan_v2": false }`
-
-**Fix:** DeblurGAN-v2 is optional and requires:
-1. TensorFlow installed: `pip install tensorflow`
-2. A trained HDF5 model (`.h5`) placed in the `trained_model/` directory
-3. The model file must be a valid HDF5 file (starts with `\x89HDF` magic bytes)
-
----
-
-### Frontend build errors (TypeScript)
-
-```powershell
-cd frontend
-npm run lint   # check for lint errors
-npm run build  # check for TypeScript errors
-```
-
----
-
-## 15. Environment Variables Reference
-
-Create a `.env` file in the **project root** (not inside `frontend/`):
-
-| Variable | Required | Description |
-|---|---|---|
-| `HF_TOKEN` | Yes (for generative AI) | Hugging Face API token for downloading Stable Diffusion models |
-
-Example `.env`:
-```ini
-HF_TOKEN=hf_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-```
-
----
-
-## Quick Reference Card
-
-```
-# First-time setup
-conda create -n visionai-tf python=3.10 -y
-conda activate visionai-tf
+## ⚡ Quick Start
+
+```bash
+conda create -n aiverse python=3.10 -y
+conda activate aiverse
 pip install -r requirements.txt
 cd frontend && npm install && cd ..
-
-# Every time you start
-conda activate visionai-tf
-.\scripts\dev.ps1          # launches both servers
-
-# Manual alternative
-python app.py              # Terminal 1 — backend  :8000
-cd frontend && npm run dev # Terminal 2 — frontend :3000
-
-# Open in browser
-http://localhost:3000
+.\scripts\dev.ps1
 ```
 
 ---
 
-*VisionAI — Built with Flask, Next.js 15, PyTorch, Diffusers, and Ultralytics YOLOv8.*
+## 📸 Demo (Optional)
+
+> Add screenshots / GIFs here for better GitHub engagement
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome!
+Feel free to open issues or submit pull requests.
+
+
