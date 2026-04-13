@@ -1,0 +1,149 @@
+﻿Defaulting to user installation because normal site-packages is not writeable
+Requirement already satisfied: flask in c:\users\smit chaudhari\appdata\roaming\python\python314\site-packages (from -r requirements.txt (line 1)) (3.1.2)
+pip : WARNING: Retrying 
+(Retry(total=4, 
+connect=None, read=None, 
+redirect=None, 
+status=None)) after 
+connection broken by 'Read
+TimeoutError("HTTPSConnect
+ionPool(host='pypi.org', 
+port=443): Read timed 
+out. (read 
+timeout=15)")': 
+/simple/opencv-python/
+At line:1 char:1
++ pip install -r 
+requirements.txt > 
+pip_out.txt 2>&1
++ ~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo        
+      : NotSpecified: (W  
+  ARNING: Retryi.../ope   
+ ncv-python/:String) [    
+], RemoteException
+    + FullyQualifiedError 
+   Id : NativeCommandErr  
+  or
+ 
+Collecting opencv-python (from -r requirements.txt (line 2))
+  Using cached opencv_python-4.13.0.92-cp37-abi3-win_amd64.whl.metadata (20 kB)
+Collecting numpy<2 (from -r requirements.txt (line 3))
+  Using cached numpy-1.26.4.tar.gz (15.8 MB)
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Installing backend dependencies: started
+  Installing backend dependencies: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'error'
+  error: subprocess-exited
+-with-error
+  
+  Preparing metadata 
+(pyproject.toml) did not 
+run successfully.
+  exit code: 1
+  
+  [19 lines of output]
+  + 
+C:\Python314\python.exe 
+C:\Users\SMIT CHAUDHARI\Ap
+pData\Local\Temp\pip-insta
+ll-uijkm7u9\numpy_df307d2a
+5bfb4844a89cdda7c4f2fec2\v
+endored-meson\meson\meson.
+py setup C:\Users\SMIT CHA
+UDHARI\AppData\Local\Temp\
+pip-install-uijkm7u9\numpy
+_df307d2a5bfb4844a89cdda7c
+4f2fec2 C:\Users\SMIT CHAU
+DHARI\AppData\Local\Temp\p
+ip-install-uijkm7u9\numpy_
+df307d2a5bfb4844a89cdda7c4
+f2fec2\.mesonpy-cuu38bsy 
+-Dbuildtype=release 
+-Db_ndebug=if-release 
+-Db_vscrt=md --native-file
+=C:\Users\SMIT CHAUDHARI\A
+ppData\Local\Temp\pip-inst
+all-uijkm7u9\numpy_df307d2
+a5bfb4844a89cdda7c4f2fec2\
+.mesonpy-cuu38bsy\meson-py
+thon-native-file.ini
+  The Meson build system
+  Version: 1.2.99
+  Source dir: 
+C:\Users\SMIT CHAUDHARI\Ap
+pData\Local\Temp\pip-insta
+ll-uijkm7u9\numpy_df307d2a
+5bfb4844a89cdda7c4f2fec2
+  Build dir: 
+C:\Users\SMIT CHAUDHARI\Ap
+pData\Local\Temp\pip-insta
+ll-uijkm7u9\numpy_df307d2a
+5bfb4844a89cdda7c4f2fec2\.
+mesonpy-cuu38bsy
+  Build type: native build
+  Project name: NumPy
+  Project version: 1.26.4
+  C compiler for the host 
+machine: gcc (gcc 6.3.0 
+"gcc (MinGW.org 
+GCC-6.3.0-1) 6.3.0")
+  C linker for the host 
+machine: gcc ld.bfd 2.28
+  C++ compiler for the 
+host machine: c++ (gcc 
+6.3.0 "c++ (MinGW.org 
+GCC-6.3.0-1) 6.3.0")
+  C++ linker for the host 
+machine: c++ ld.bfd 2.28
+  Cython compiler for the 
+host machine: cython 
+(cython 3.0.12)
+  Host machine cpu 
+family: x86
+  Host machine cpu: x86
+  
+  ..\meson.build:28:4: 
+ERROR: Problem 
+encountered: NumPy 
+requires GCC >= 8.4
+  
+  A full log can be found 
+at C:\Users\SMIT CHAUDHARI
+\AppData\Local\Temp\pip-in
+stall-uijkm7u9\numpy_df307
+d2a5bfb4844a89cdda7c4f2fec
+2\.mesonpy-cuu38bsy\meson-
+logs\meson-log.txt
+  [end of output]
+  
+  note: This error 
+originates from a 
+subprocess, and is likely 
+not a problem with pip.
+
+[notice] A new release of 
+pip is available: 25.3 -> 
+26.0.1
+[notice] To update, run: 
+python.exe -m pip install 
+--upgrade pip
+error: 
+metadata-generation-failed
+
+Encountered error while 
+generating package 
+metadata.
+
+numpy
+
+note: This is an issue 
+with the package 
+mentioned above, not pip.
+hint: See above for 
+details.

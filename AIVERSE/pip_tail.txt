@@ -1,0 +1,10 @@
+﻿on PATH.:String) [    ], 
+RemoteException
+    + FullyQualifiedError   
+ Id : NativeCommandErr    or
+ 
+  Consider adding this 
+directory to PATH or, if 
+you prefer to suppress this 
+warning, use 
+--no-warn-script-location.

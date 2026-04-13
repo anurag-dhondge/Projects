@@ -1,0 +1,10 @@
+﻿accelerate.exe are 
+installed in 'C:\Users\SMIT 
+CHAUDHARI\AppData\Roaming\Py
+thon\Python314\Scripts' 
+which is not on PATH.
+  Consider adding this 
+directory to PATH or, if 
+you prefer to suppress this 
+warning, use 
+--no-warn-script-location.

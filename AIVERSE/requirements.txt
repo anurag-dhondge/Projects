@@ -1,0 +1,14 @@
+flask
+opencv-python
+numpy
+pillow
+torch
+torchvision
+diffusers
+transformers
+scikit-image
+accelerate
+safetensors
+ultralytics
+flask-cors
+python-dotenv

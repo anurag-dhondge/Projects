@@ -1,0 +1,12 @@
+
+> frontend@0.1.0 dev
+> next dev
+
+▲ Next.js 16.1.6 (Turbopack)
+- Local:         http://localhost:3001
+- Network:       http://10.241.215.16:3001
+
+✓ Starting...
+  Suggestion: If you intended to restart next dev, terminate the other process, and then t GET / 200[?25h
+s (compile: 148ms, render: 7.2s)
+✓ Compiled in 3.2s
